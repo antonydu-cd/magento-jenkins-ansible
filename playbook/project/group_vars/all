@@ -1,0 +1,5 @@
+---
+# Variables listed here
+
+repository: git@gitlab.com:eBrook_team/mamaway.git
+project_path: /var/www/mamaway/

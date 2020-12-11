@@ -1,0 +1,7 @@
+---
+    # This playbook deploys the whole application stack in this site.
+- name: Deploy Magento
+  hosts: sitservers
+  remote_user: ec2-user
+  roles:
+    - magento

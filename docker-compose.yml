@@ -1,0 +1,38 @@
+version: "3"
+services:
+  jenkins:
+    user: root:root
+    image: jenkinsci/blueocean
+    restart: always
+    container_name: jenkins
+    volumes:
+      - "jenkins-data:/var/jenkins_home"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    networks:
+      docker_composer_net:
+        aliases:
+          - jenkins
+  ansible:
+    build:
+      context: ./ansible
+      dockerfile: Dockerfile
+    image: centos/ansible
+    restart: always
+    container_name: ansible
+    tty: true
+    stdin_open: true
+    volumes:
+      - "/root/.ssh:/root/.ssh"
+      - "/etc/ansible/hosts:/etc/ansible/hosts"
+      - "./playbook:/etc/playbook"
+    networks:
+      docker_composer_net:
+        aliases:
+          - ansible
+networks:
+  docker_composer_net:
+volumes:
+  jenkins-data:

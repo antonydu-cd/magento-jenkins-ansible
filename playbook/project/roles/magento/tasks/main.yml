@@ -1,0 +1,11 @@
+- name: Copy the code from repository
+  git:
+    repo: "{{ repository }}"
+    dest: "{{ project_path }}"
+    update: yes
+- name: Deploy Magento
+  # become: yes
+  # become_user: root
+  shell:
+    cmd: cd {{ project_path }} && sh bin/deploy
+  
